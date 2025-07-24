@@ -20,12 +20,12 @@ func _update_highscore_stuff(mode):
 		meteor_highscore = file.get_var()
 
 func num_to_time(s: int) -> String:
-	var h: int = s / 3600
+	var h: int = int(s / 3600.)
 	s %= 3600
-	var m: int = s / 60
+	var m: int = int(s / 60.)
 	s %= 60
-	var str := ""
-	if h != 0: str += str(h) + "h "
-	if m != 0: str += str(m) + "m "
-	if s != 0: str += str(s) + "s "
-	return str
+	var string := ""
+	if h != 0: string += str(h) + "h "
+	if m != 0: string += str(m) + "m "
+	if s != 0: string += str(s) + "s "
+	return string

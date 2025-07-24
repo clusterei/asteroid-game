@@ -1,0 +1,95 @@
+[gd_scene load_steps=6 format=3 uid="uid://cmaxor27m2wo7"]
+
+[ext_resource type="Texture2D" uid="uid://f4of2wgdld6r" path="res://grafics/playership.png" id="1_bnsmw"]
+[ext_resource type="Script" path="res://scenes/player.gd" id="1_kfuko"]
+[ext_resource type="AudioStream" uid="uid://15chxam3p21o" path="res://audio/laser-45816.mp3" id="3_6rbif"]
+[ext_resource type="AudioStream" uid="uid://x74y47ngn2c4" path="res://audio/crash-7075.mp3" id="3_w5oqg"]
+
+[sub_resource type="ParticleProcessMaterial" id="ParticleProcessMaterial_ir2uu"]
+lifetime_randomness = 0.16
+particle_flag_disable_z = true
+emission_shape = 1
+emission_sphere_radius = 7.0
+direction = Vector3(-1, 0, 0)
+spread = 10.89
+initial_velocity_min = 63.16
+initial_velocity_max = 157.89
+gravity = Vector3(0, 0, 0)
+linear_accel_min = -78.09
+linear_accel_max = -78.09
+scale_min = 0.5
+scale_max = 1.5
+color = Color(0.992157, 0.839216, 0.72549, 1)
+
+[node name="player" type="CharacterBody2D"]
+collision_layer = 2
+collision_mask = 5
+script = ExtResource("1_kfuko")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="."]
+position = Vector2(-3, -5)
+rotation = 1.5708
+scale = Vector2(0.57628, 0.518382)
+polygon = PackedVector2Array(-64.2047, 63.6599, -64.2048, 42.44, -26.029, 1.92918, -27.7645, -69.4467, -3.47084, -92.5958, 22.5582, -92.5959, 45.1167, -71.3761, 45.117, 3.85798, 83.293, 44.3685, 81.5578, 63.6593, 17.353, 92.5957, 1.73557, 92.5958)
+
+[node name="laserspawnpoint" type="Marker2D" parent="."]
+position = Vector2(42, 0)
+
+[node name="lasercooldown" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="lasersound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_6rbif")
+bus = &"eventsounds"
+
+[node name="collisionsound" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_w5oqg")
+pitch_scale = 0.78
+bus = &"eventsounds"
+
+[node name="optional_camera" type="Camera2D" parent="."]
+position = Vector2(-1, 2)
+enabled = false
+
+[node name="GPUParticles2D" type="GPUParticles2D" parent="."]
+position = Vector2(-52, 13)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ir2uu")
+lifetime = 0.5
+trail_enabled = true
+trail_lifetime = 0.1
+
+[node name="GPUParticles2D2" type="GPUParticles2D" parent="."]
+position = Vector2(-52, -13)
+emitting = false
+amount = 50
+process_material = SubResource("ParticleProcessMaterial_ir2uu")
+lifetime = 0.5
+trail_enabled = true
+trail_lifetime = 0.1
+
+[node name="playerimage" type="Sprite2D" parent="."]
+position = Vector2(-11, -2.72848e-12)
+rotation = 1.5708
+scale = Vector2(-0.520017, 0.760305)
+texture = ExtResource("1_bnsmw")
+
+[node name="laser_cooldown_bar" type="ProgressBar" parent="."]
+modulate = Color(1, 0, 0, 1)
+offset_left = -11.0
+offset_top = -2.0
+offset_right = 33.0
+offset_bottom = 6.0
+scale = Vector2(1, 0.479999)
+max_value = 1.0
+value = 0.6
+show_percentage = false
+
+[node name="Camera2D" type="Camera2D" parent="."]
+rotation = 1.5708
+ignore_rotation = false
+enabled = false
+
+[connection signal="timeout" from="lasercooldown" to="." method="_on_lasercooldown_timeout"]

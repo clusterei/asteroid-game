@@ -1,0 +1,29 @@
+[gd_scene load_steps=3 format=3 uid="uid://ctuttpcpg7f76"]
+
+[ext_resource type="PackedScene" uid="uid://i15iq33j3mw4" path="res://grafics/playermodel_3d.glb" id="1_2lxpd"]
+[ext_resource type="Script" path="res://scenes/player_3d.gd" id="1_8e74c"]
+
+[node name="player3D" type="Node3D"]
+script = ExtResource("1_8e74c")
+
+[node name="Camera3D" type="Camera3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.72531, 2.11093)
+
+[node name="UI" type="Control" parent="."]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+
+[node name="middle" type="ColorRect" parent="UI"]
+layout_mode = 1
+offset_left = 740.0
+offset_top = 365.0
+offset_right = 760.0
+offset_bottom = 385.0
+color = Color(0.497474, 0.497474, 0.497474, 1)
+
+[node name="playermodel_3d" parent="." instance=ExtResource("1_2lxpd")]
+
+[node name="GPUParticles3D" type="GPUParticles3D" parent="."]
+emitting = false

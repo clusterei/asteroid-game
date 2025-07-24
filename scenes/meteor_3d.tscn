@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=3 uid="uid://cm7lsarbqcjfm"]
+
+[ext_resource type="Script" path="res://scenes/meteor_3d.gd" id="1_dyd4d"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_vstws"]
+
+[node name="meteor_3D" type="StaticBody3D"]
+script = ExtResource("1_dyd4d")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.00790501, 1.19209e-07, -0.00431871)
+mesh = SubResource("BoxMesh_vstws")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]

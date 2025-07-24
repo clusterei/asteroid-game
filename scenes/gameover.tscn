@@ -1,0 +1,91 @@
+[gd_scene load_steps=4 format=3 uid="uid://cvo7lyby6ysos"]
+
+[ext_resource type="Script" path="res://scenes/gameover.gd" id="1_exwsl"]
+[ext_resource type="AudioStream" uid="uid://c6mek1v4vndll" path="res://audio/low-spaceship-rumble-195722.mp3" id="2_3fxfj"]
+[ext_resource type="AudioStream" uid="uid://btp14rli3nlcm" path="res://audio/asteroid-hitting-something-152511.mp3" id="3_jyfg1"]
+
+[node name="gameover" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_exwsl")
+
+[node name="backround" type="ColorRect" parent="."]
+layout_mode = 0
+offset_right = 1500.0
+offset_bottom = 755.0
+color = Color(0.207843, 0.168627, 0.247059, 1)
+metadata/_edit_lock_ = true
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CenterContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 60
+text = "GAME OVER"
+
+[node name="score" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "final score: "
+
+[node name="highscore" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "highscore: "
+
+[node name="destroyed_meteors" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "destroyed meteorites: "
+
+[node name="meteor_highscore" type="Label" parent="CenterContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+theme_override_font_sizes/font_size = 30
+text = "meteor highscore: "
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 1
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -99.0
+offset_top = -40.0
+offset_right = 99.0
+grow_horizontal = 2
+grow_vertical = 0
+theme_override_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="MarginContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "press enter to start again"
+
+[node name="backroundmusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("2_3fxfj")
+volume_db = 20.613
+autoplay = true
+bus = &"music"
+
+[node name="final_crash" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("3_jyfg1")
+bus = &"eventsounds"

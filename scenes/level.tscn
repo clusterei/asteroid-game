@@ -1,0 +1,85 @@
+[gd_scene load_steps=9 format=3 uid="uid://bx7kguc0rd65b"]
+
+[ext_resource type="PackedScene" uid="uid://cmaxor27m2wo7" path="res://scenes/player.tscn" id="1_4vel7"]
+[ext_resource type="Script" path="res://scenes/level.gd" id="1_aqqv8"]
+[ext_resource type="Texture2D" uid="uid://ccu8ft38j7t58" path="res://grafics/background.png" id="1_ht3ej"]
+[ext_resource type="PackedScene" uid="uid://dlwqefugcr8x1" path="res://scenes/UI.tscn" id="4_ento3"]
+[ext_resource type="AudioStream" uid="uid://drujxq4tnrv8t" path="res://audio/cinematic-music-sketches-11-cinematic-percussion-sketch-116186.mp3" id="5_nxujq"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5tsfa"]
+size = Vector2(10, 512)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_reybr"]
+size = Vector2(1031, 13)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_rfdbh"]
+size = Vector2(1279, 928)
+
+[node name="level" type="Node2D"]
+script = ExtResource("1_aqqv8")
+
+[node name="background" type="Sprite2D" parent="."]
+position = Vector2(751.5, 377)
+scale = Vector2(1.00718, 0.998876)
+texture = ExtResource("1_ht3ej")
+
+[node name="Borders" type="Node2D" parent="."]
+scale = Vector2(1.47, 1.47)
+metadata/_edit_lock_ = true
+
+[node name="StaticBody2D (there were multiple in tutourial but why?)" type="StaticBody2D" parent="Borders"]
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/StaticBody2D (there were multiple in tutourial but why?)"]
+position = Vector2(1024, 256)
+shape = SubResource("RectangleShape2D_5tsfa")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Borders/StaticBody2D (there were multiple in tutourial but why?)"]
+position = Vector2(0, 256)
+shape = SubResource("RectangleShape2D_5tsfa")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="Borders/StaticBody2D (there were multiple in tutourial but why?)"]
+position = Vector2(513, 0)
+shape = SubResource("RectangleShape2D_reybr")
+metadata/_edit_lock_ = true
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="Borders/StaticBody2D (there were multiple in tutourial but why?)"]
+position = Vector2(513, 512)
+shape = SubResource("RectangleShape2D_reybr")
+metadata/_edit_lock_ = true
+
+[node name="relevance_dtection_area" type="Area2D" parent="Borders"]
+collision_layer = 0
+collision_mask = 12
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Borders/relevance_dtection_area"]
+position = Vector2(509.5, 182)
+shape = SubResource("RectangleShape2D_rfdbh")
+metadata/_edit_lock_ = true
+
+[node name="lasers" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="player" parent="." instance=ExtResource("1_4vel7")]
+position = Vector2(770, 366)
+
+[node name="meteors" type="Node2D" parent="."]
+metadata/_edit_lock_ = true
+
+[node name="spawntimer" type="Timer" parent="."]
+wait_time = 0.4
+autostart = true
+
+[node name="UI" parent="." instance=ExtResource("4_ento3")]
+
+[node name="backroundmusic" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("5_nxujq")
+volume_db = 7.924
+autoplay = true
+bus = &"music"
+
+[connection signal="area_exited" from="Borders/relevance_dtection_area" to="." method="_on_relevance_dtection_area_area_exited"]
+[connection signal="laser" from="player" to="." method="_on_player_laser"]
+[connection signal="timeout" from="spawntimer" to="." method="_on_spawntimer_timeout"]
